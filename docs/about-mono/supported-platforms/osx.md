@@ -112,7 +112,11 @@ Uninstalling Mono on Mac OS X
 Run this script in a terminal:
 
 ```bash
+#Remove the framework directory
 sudo rm -rf /Library/Frameworks/Mono.framework
+#Discard receipt data for the Mono package
 sudo pkgutil --forget com.xamarin.mono-MDK.pkg
+#Remove all Mono broken symbolinc links from /usr/local
+sudo find /usr/local -type l|xargs -L 1 file|grep broken|grep Mono.framework|cut -d":" -f1|xargs rm
 ```
 
